@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>牛丼屋</title>
+</head>
+<body>
+    <p>メニューは<%= greet4 %>です．</p>
+    <p>あなたの注文は<%= meshi %>です．</p>
+    <p>お会計は<%= cost %>円です．</p>
+    <hr>
+    <form action="/meshi">
+        <input type="text" name="meshi" required>
+        <label for="cost">次は何頼む？</label>
+        <input type="hidden" name="cost" value="<%= cost %>">
+    </form>   
+</body>
+</html>

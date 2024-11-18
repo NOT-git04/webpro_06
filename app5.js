@@ -61,4 +61,54 @@ app.get("/janken", (req, res) => {
   res.render('janken', display);
 });
 
+app.get("/muki", (req, res) => {
+  let muki = req.query.muki;
+  let win = req.query.win ? Number(req.query.win) : 0;
+  let total = req.query.total ? Number(req.query.total) : 0;
+  console.log({ muki, win, total });
+  const num = Math.floor(Math.random() * 4 + 1);
+  let cpu = '';
+  if (num === 1) cpu = '上';
+  else if (num === 2) cpu = '下';
+  else if (num === 3) cpu = '右';
+  else cpu = '左';
+  let judgement = '';
+  if (
+    (muki === '上' && cpu === '上') ||
+    (muki === '下' && cpu === '下') ||
+    (muki === '右' && cpu === '右') ||
+    (muki === '左' && cpu === '左')
+  ) {
+    judgement = '勝ち';
+    win += 1;
+  } else {
+    judgement = '負け';
+  }
+  total += 1;
+  const display = {
+    your: muki,
+    cpu: cpu,
+    judgement: judgement,
+    win: win,
+    total: total
+  };
+  res.render('muki', display);
+});
+
+app.get("/meshi", (req, res) => {
+  const message4 = "牛丼並盛，牛丼大盛，牛丼特盛，カレー";
+  let meshi = req.query.meshi;
+  let cost = req.query.cost ? Number(req.query.cost) : 0;
+  console.log({ meshi, cost });
+  if(meshi === '牛丼並盛') cost = 498;
+  else if(meshi === '牛丼大盛') cost = '696';
+  else if(meshi === '牛丼特盛') cost = '993';
+  else cost = '465'
+  res.render('meshi', {
+    greet4: message4,
+    meshi: meshi,
+    cost: cost
+  });
+});
+
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
